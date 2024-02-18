@@ -6,19 +6,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import HeaderNav from "./UI/HeaderNav";
 import { Fragment } from "react";
+import OverlayPortal from "./UI/OverlayPortal";
+import LoginModal from "./Login/LoginModal";
 
 function App() {
   const [courses, setCourses] = useState([]);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
+  const theme_mode = [ "dark" , "light"];
   
 
-  const temeCangehandler = (isDarkMode) => {
-    const mode=isDarkMode ? "dark" : "light";
-    setTheme(mode);
-    console.log(theme);
+  const temeCangehandler = () => {
+    setTheme(!theme);
+    const mode=theme ? theme_mode.at(0) : theme_mode.at(1);
+    console.log(mode);
+    document.documentElement.setAttribute("data-bs-theme", mode);
   };
   
-  document.documentElement.setAttribute("data-bs-theme", theme);
 
   const loadCourseContent = () => {
     fetch("http://127.0.0.1:8080/content-service/course/")
@@ -33,23 +37,31 @@ function App() {
   };
 
   useEffect(loadCourseContent, []);
-  // useEffect(() => {
-  //   document.documentElement.setAttribute('data-theme', theme);
-  // }, [theme]);
+
+
+  const loginShowHandler =(isShowing)=>{
+    setShowLogin(isShowing);
+    
+  }
+  console.log("login trigger from singup ="+showLogin);
 
   console.log("running app");
   return (
     <Fragment>
+       {/* <OverlayPortal> */}
+        <LoginModal
+        render = {showLogin}
+        onShowLogin ={loginShowHandler}
+        
+        />
+        {/* </OverlayPortal> */}
+       
       <HeaderNav 
       onModeChange={temeCangehandler}
+      onShowLogin ={loginShowHandler}
+      isDarkMode={theme}
       />
       <Dasboard>
-        {/* <Course title='course 1'/>
-      <Course title='course 2'/>
-      <Course title='course 3'/>
-      <Course title='course 4'/>
-      <Course title='course 5'/>
-      <Course title='course 6'/> */}
         {courses.map((data) => (
           <Course
             key={data.id}

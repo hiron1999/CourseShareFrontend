@@ -4,12 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// Add the attribute to the <html> tag
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <div data-bs-theme="dark"><App /></div>
-    
+  
+    <App />
     
 
 );

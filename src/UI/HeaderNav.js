@@ -1,18 +1,29 @@
-import { Navbar, Container, Button, ToggleButton } from "react-bootstrap";
+import { Navbar, Container, Button, ToggleButton, Overlay } from "react-bootstrap";
 import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
+
+
 const HeaderNav = (props) => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    // const [isDarkMode, setIsDarkMode] = useState(false);
+    // const [isLoginClick, setLoginClick] = useState(false);
+    
     
     const modeCangeHandler =()=>{
-        setIsDarkMode(!isDarkMode);
+        // setIsDarkMode(!isDarkMode);
+        props.onModeChange();
     };
-    props.onModeChange(isDarkMode);
+
+    const loginPrompthandler =() =>{
+        
+        
+        props.onShowLogin(true);
+    }
 
   return (
+    <>
     <Navbar className="bg-body-tertiary" sticky="top">
       <Container>
         <Navbar.Brand href="#home">
@@ -23,21 +34,25 @@ const HeaderNav = (props) => {
           <ToggleButton
             type="checkbox"
             className="btn-light"
-            variant={isDarkMode ? "dark" : "light"}
-            checked={isDarkMode}
+            variant={props.isDarkMode ? "dark" : "light"}
+            checked={props.isDarkMode}
             value="dark"
             onClick={modeCangeHandler}
           >
-            <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
+            <FontAwesomeIcon icon={props.isDarkMode ? faMoon : faSun} />
           </ToggleButton>
           
           {/* <Navbar.Text>
             Signed in as: <a href="#login">Mark Otto</a>
           </Navbar.Text> */}
-          <Button className="primary">Singup</Button>
+          <Button className="primary" onClick={loginPrompthandler}>Singup</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+          
+         
+
+    </>
   );
 };
 

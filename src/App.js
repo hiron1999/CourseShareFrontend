@@ -3,74 +3,80 @@ import "./App.css";
 import Dasboard from "./UI/Dashboard";
 import { Course } from "./Course/Course";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import HeaderNav from "./UI/HeaderNav";
 import { Fragment } from "react";
 import OverlayPortal from "./UI/OverlayPortal";
 import LoginModal from "./Login/LoginModal";
+import LoginForm from "./Login/LoginForm";
+import { Route, Routes } from "react-router-dom";
+import RegisterForm from "./Register/RegisterForm";
+import LoginContext from "./Context/LoginProvider";
+import ProfileCard from "./Account/ProfileCard";
+import CourseDetailsPage from "./Course/CourseDetailsPage";
+import ClassRoom from "./Course/ClassRoom";
+import { VideoProvider } from "./Context/VideoProvider";
+import PrivateRoute from "./CommonUtils/PrivateRoute";
 
 function App() {
-  const [courses, setCourses] = useState([]);
+  const { FormControl } = useContext(LoginContext);
   const [theme, setTheme] = useState(true);
-  const [showLogin, setShowLogin] = useState(false);
-  const theme_mode = [ "dark" , "light"];
-  
+  const theme_mode = ["dark", "light"];
 
   const temeCangehandler = () => {
     setTheme(!theme);
-    const mode=theme ? theme_mode.at(0) : theme_mode.at(1);
+    const mode = theme ? theme_mode.at(0) : theme_mode.at(1);
     console.log(mode);
     document.documentElement.setAttribute("data-bs-theme", mode);
   };
+
   
 
-  const loadCourseContent = () => {
-    fetch("http://127.0.0.1:8080/content-service/course/")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setCourses(data);
-        // console.log(courses);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  useEffect(loadCourseContent, []);
-
-
-  const loginShowHandler =(isShowing)=>{
-    setShowLogin(isShowing);
-    
-  }
-  console.log("login trigger from singup ="+showLogin);
-
   console.log("running app");
+  console.log("form set:",FormControl)
   return (
     <Fragment>
-       {/* <OverlayPortal> */}
-        <LoginModal
-        render = {showLogin}
-        onShowLogin ={loginShowHandler}
-        
+      <LoginModal>
+        {FormControl ? (
+          FormControl === "register" ? (
+            <RegisterForm />
+          ) : (
+            <LoginForm />
+          )
+        ) : (
+          <LoginForm />
+        )}
+      </LoginModal>
+
+      <HeaderNav onModeChange={temeCangehandler} isDarkMode={theme} />
+      <Routes>
+        <Route
+          path=""
+          element={
+            <Dasboard/>
+          }
         />
-        {/* </OverlayPortal> */}
-       
-      <HeaderNav 
-      onModeChange={temeCangehandler}
-      onShowLogin ={loginShowHandler}
-      isDarkMode={theme}
-      />
-      <Dasboard>
-        {courses.map((data) => (
-          <Course
-            key={data.id}
-            title={data.name}
-            desc={data.description}
-            autor={data.autor}
+
+        <Route path="/profile" 
+        element={ 
+          <PrivateRoute
+          component={ProfileCard}
           />
-        ))}
-      </Dasboard>
+          } />
+        <Route path="/courseDetails/:courseId"
+        element={
+          <PrivateRoute
+          component={CourseDetailsPage}
+          />
+          }/>
+        
+        <Route path="/video-leacture/:video"
+        element={
+        <VideoProvider>
+          <ClassRoom/>
+          </VideoProvider>
+        }/>
+      </Routes>
     </Fragment>
   );
 }

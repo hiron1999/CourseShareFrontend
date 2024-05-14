@@ -1,38 +1,68 @@
 import React from "react";
-import LoginForm from "./LoginForm";
-import { Modal,Button } from "react-bootstrap";
-import { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { useState,useContext } from "react";
+import LoginContext from "../Context/LoginProvider";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 const LoginModal = (props) => {
-  const [show, setShow] = useState(true);
+  const {showModal,setShowModal,SetFromControl,isLoggin}=useContext(LoginContext);
+  const [modalTitle, setModalTitle] = useState("");
+  const nevigate =useNavigate();
+  const location = useLocation();
 
   const handleClose = () => {
-    
-    setShow(false);
-    props.onShowLogin(false);
-  }
-  const handleShow = () =>{
-    setShow(true);
-    console.log("showing modal");
+   if(!isLoggin){ 
 
-  } 
-  console.log("getting vaue from app -->"+props.render)
+      try { const referrerHostname = new URL(document.referrer).hostname;
+        const currentHostname = window.location.hostname;
+        if (referrerHostname === currentHostname) {
+          
+          nevigate(-1);
+        }
+        else{
+          nevigate("");
+        } 
+      }catch (error){
+        console.log(error);
+        nevigate("");
+      }
+    }
+    setShowModal(false);
+    SetFromControl("login");
+  };
+  // const handleShow = () => {
+  //   setShow(true);
+  //   console.log("showing modal");
+  // };
+
+  const updateTitle = (title) => {
+    setModalTitle(title);
+  };
+
+  const child = React.Children.only(props.children);
+  // Clone the child element and pass additional props
+  const childWithProps = React.cloneElement(child, { updateTitle });
+
+  console.log("getting vaue from app -->" + props.render);
   return (
-    <Modal show={props.render} onHide={handleClose} >
+    <Modal show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Login here</Modal.Title>
+        <Modal.Title>{modalTitle}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <LoginForm />
+        {/* <Routes updateTitle={updateTitle}>
+          <Route 
+          path="" 
+          element={<LoginForm updateTitle={updateTitle} />} />
+
+          <Route
+            path="/register"
+            element={<RegisterForm updateTitle={updateTitle} />}
+          />
+        </Routes> */}
+        {childWithProps}
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };

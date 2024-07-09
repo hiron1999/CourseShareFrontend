@@ -13,7 +13,7 @@ const ModuleSpace =({modules})=>{
           <ListGroupItem key={index}>
               <Module 
               title={module?.name}
-              content = {module?.leactures}
+              content = {module?.lectures}
               />
           </ListGroupItem>
           ))}

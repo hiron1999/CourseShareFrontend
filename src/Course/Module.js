@@ -2,11 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Card, Button, ListGroup } from 'react-bootstrap';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Module=(props)=>{
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const location = useLocation();
+  console.log("current location: ",location.pathname);
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -60,7 +61,7 @@ const Module=(props)=>{
                 paddingBottom: '1px'
               }}
               key={index}>
-             <Link to={`/video-leacture/${lecture.title}`}>
+             <Link to={location.pathname.replace(/\/[^\/]*$/,`/video-leacture/${lecture.id}`)}>
               <p>
                 <span>
                 <FontAwesomeIcon icon={faPlay} 

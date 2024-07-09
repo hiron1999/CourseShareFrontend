@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext } from "react";
 import { getHttpErrorMessage } from "../CommonUtils/CommonErrorMassages";
 import useBaseConnection from "./useBaseConnection";
+import LoginContext from "../Context/LoginProvider";
+
 const PATH="/course/"
 const useCourseDetails = (courseId)=>{
 
@@ -14,9 +16,13 @@ const useCourseDetails = (courseId)=>{
       const { response, loadingStatus, error, sendRequest } = useBaseConnection(catalogConfig);
       const [courseDetails, setCourseDetails] = useState();
       const [courseError, setCourseError] =useState();
+      const {userId} = useContext(LoginContext);
 
     const loadCourseDetails = async()=>{
-       await sendRequest();
+      const requestparams = {
+        userId : userId
+      }
+       await sendRequest({reqParams : requestparams});
     }
 
     // console.log("catalogHook :",courses);

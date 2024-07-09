@@ -24,7 +24,7 @@ const USER_PROFILE_URL = PROFILE_URL + userId;
 
 
   const getUser = async()=>{
-    await sendRequest('Private');
+    await sendRequest({endpointType:'Private'});
    
   }
 

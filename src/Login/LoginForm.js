@@ -39,9 +39,9 @@ const LoginForm =(props)=>{
     const loginFailed= <><h1>Failed to Login</h1><p style={{color: "red"}}>{loginResponse}</p></>;
 
     return(
-     loadingStatus === "loading" ?
-     <h1>Loading.........</h1>
-     : 
+    //  loadingStatus === "loading" ?
+    //  <h1>Loading.........</h1>
+    //  : 
       loginResponse ?
       isLoggin ? loginSuccess :loginFailed
       :

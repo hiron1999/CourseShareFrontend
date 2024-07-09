@@ -17,6 +17,8 @@ import CourseDetailsPage from "./Course/CourseDetailsPage";
 import ClassRoom from "./Course/ClassRoom";
 import { VideoProvider } from "./Context/VideoProvider";
 import PrivateRoute from "./CommonUtils/PrivateRoute";
+import { CourseProvider } from "./Context/CourseProvider";
+
 
 function App() {
   const { FormControl } = useContext(LoginContext);
@@ -63,7 +65,16 @@ function App() {
           component={ProfileCard}
           />
           } />
-        <Route path="/courseDetails/:courseId"
+        
+        <Route path="/course/:courseId/*"
+        element={
+          <PrivateRoute
+          component={CourseProvider}
+          />
+        }/>
+
+        
+        {/* <Route path="/courseDetails/:courseId"
         element={
           <PrivateRoute
           component={CourseDetailsPage}
@@ -75,7 +86,7 @@ function App() {
         <VideoProvider>
           <ClassRoom/>
           </VideoProvider>
-        }/>
+        }/> */}
       </Routes>
     </Fragment>
   );

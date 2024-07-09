@@ -6,16 +6,20 @@ import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./Context/Auth/AuthProvider";
 import { LoginProvider } from "./Context/LoginProvider";
 import { BrowserRouter } from "react-router-dom";
+import { LoadingProvider } from "./Context/LoadingProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter basename="/courseshare">
-    <LoginProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </LoginProvider>
+    <LoadingProvider>
+      <LoginProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </LoginProvider>
+    </LoadingProvider>
   </BrowserRouter>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

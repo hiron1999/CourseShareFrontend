@@ -35,7 +35,7 @@ const CatalogContainer = () =>{
                         courseId={data.id}
                           title={data.name}
                           desc={data.description}
-                          autor={data.autor}
+                          author={data.author}
                         />
                       )))
                       :(

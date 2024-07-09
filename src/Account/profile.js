@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Button, Image } from 'react-bootstrap';
 
 const Profile = ({ name, bio,  profilePic }) => {
-  const courses=[];
+  
   return (
     <Card>
       <Card.Body>

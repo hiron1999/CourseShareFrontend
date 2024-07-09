@@ -1,6 +1,5 @@
 import { Container } from "react-bootstrap";
 import "./Dashboard.css";
-import CatalogContainer from "../Course/CatalogContainer";
 import { CatalogProvider } from "../Context/CatalogProvider";
 import { useContext, useEffect } from "react";
 import LoginContext from "../Context/LoginProvider";

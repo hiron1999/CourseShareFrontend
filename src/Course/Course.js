@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Button, Col } from "react-bootstrap";
+import { Button, Card, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import  ButtonIcon from "../Icons/button-start-now.svg"
 export const Course = (props) => {
   return (
     <Card style={{ width: "18rem" }} >
@@ -14,16 +14,18 @@ export const Course = (props) => {
         <Card.Text>
           {props.desc}
         </Card.Text>
-        <Card.Subtitle>Autor : {props.autor}</Card.Subtitle>
+        <Card.Subtitle>Autor : {props.author}</Card.Subtitle>
         
       </Card.Body>
       <Card.Footer>
       
-        <Link to={`/courseDetails/${props.courseId}`}>
-        Start Now
+        <Link to={`/course/${props.courseId}/details`}>
+          <Image src={ButtonIcon} 
+          
+          style={{height:'20px',backgroundColor: "transparent"}}/>
         </Link>
         
-        
+       
       </Card.Footer>
     </Card>
   );

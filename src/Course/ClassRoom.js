@@ -2,27 +2,30 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Navbar, Nav, NavDropdown, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars,faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
-import ModuleSpace from "./ModuleSpace";
+import VideoContext from "../Context/VideoProvider";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "./VideoPlayer";
-import ReactPlayer from "react-player";
-import VideoContext, { VideoProvider } from "../Context/VideoProvider";
+
+
+import CourseContext from "../Context/CourseProvider";
+import TreeList from "../UI/TreeList";
 
 const ClassRoom = () => {
   const [expanded, setExpanded] = useState(false);
-    const {video} =useParams();
-    const baseURL = "http://127.0.0.1:8080";
-   
-    const {setvideoId} =useContext(VideoContext);
+  const {videoid} =useParams();
+  const {courseDetails}  = useContext(CourseContext);
+  // const {setvideoId,videoId} =useContext(VideoContext);
 
   const toggleNavbar = () => {
     setExpanded(!expanded);
   };
 
-  useEffect(()=>{
-    // console.log(videoUrl);
-    setvideoId(video);
-  },[])
+  // console.log("video id :",videoid);
+  // useEffect(()=>{
+    // setvideoId(videoid);
+    // setvideoTimeStamp(5);
+    
+  // },[videoid])
 
   return (
     
@@ -52,7 +55,7 @@ const ClassRoom = () => {
           minWidth: "400px" }}>
             
 
-           <VideoPlayer/>
+          <VideoPlayer/>
             
       </Card>
       {/* Side Collapsible Navbar */}
@@ -76,10 +79,25 @@ const ClassRoom = () => {
         </Navbar.Toggle >
         <Navbar.Collapse
          id="collapse-space"
-         style={{ flexDirection: "column", flex: 2, width: "300px" }}
+         style={{ flexDirection: "column", flex: 2, width: "300px",paddingTop: "5px" }}
          >
           
-            <ModuleSpace/>
+          
+            {/* <ModuleSpace modules={courseDetails?.courseEntity?.modules}/> */}
+          <Card
+          style={{
+            padding: "10px",
+          }}
+          >
+            <Card.Title
+            style={{
+              borderBottom: '1px solid #ccc',
+
+            }}
+            >Learning path
+            </Card.Title>
+           <TreeList data={courseDetails?.courseEntity?.modules}/>
+           </Card> 
         </Navbar.Collapse>
       </Navbar>
       

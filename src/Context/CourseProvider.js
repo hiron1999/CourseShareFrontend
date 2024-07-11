@@ -15,11 +15,14 @@ export const CourseProvider = () => {
   const { loadCourseDetails,loadingStatus,courseError,courseDetails } = useCourseDetails(courseId);
 
     // console.log("catalogprovider :",courses);
-   
+  const getleacture=(id)=>{
+    return courseDetails?.courseEntity?.modules.flatMap(module => module.lectures).find(l => l.id === id);
+  }
 
   return (
     <CourseContext.Provider value={{
         loadCourseDetails,
+        getleacture,
         loadingStatus,
         courseError,
         courseDetails,

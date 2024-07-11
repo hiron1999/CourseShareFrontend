@@ -48,12 +48,15 @@ const ClassRoom = () => {
          display: 'flex',
          height: '80vh',
          width: '100vw',
-         alignItems: "center",
+         alignItems: "stretch",
          flex:1,
-          padding: "10px",
+          padding: "5px",
           position: "relative",
-          minWidth: "400px" }}>
-            
+          minWidth: "400px",
+          
+        }}
+          
+          >
 
           <VideoPlayer/>
             

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import CourseStatusContext from "./CourseStatusProvider";
 import ClassRoom from "../Course/ClassRoom";
 import { useParams } from "react-router-dom";
+import CourseContext from "./CourseProvider";
 
 const baseURL = "http://127.0.0.1:8080";
 
@@ -10,10 +11,12 @@ const VideoContext =createContext({});
 export const VideoProvider = () =>{
     const {videoid} =useParams();
     // const[videoId,setvideoId]=useState();
+    const {getleacture}=useContext(CourseContext);
     const{getVideoStatus,updateVideoStatus}=useContext(CourseStatusContext);
     const[videotimestamp,setvideoTimeStamp]=useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     let videoUrl = `${baseURL}/video-leacture/${videoid}`;
+    var videoTitle = getleacture(videoid)?.title || "";
     useEffect(()=>{
         const videoStatus = getVideoStatus(videoid);
         console.log("video status :",videoStatus?.playedTime );
@@ -39,6 +42,7 @@ export const VideoProvider = () =>{
         <VideoContext.Provider
         value={
             {videoUrl,
+            videoTitle,
             setvideoTimeStamp,
             videotimestamp,
             saveplayback,

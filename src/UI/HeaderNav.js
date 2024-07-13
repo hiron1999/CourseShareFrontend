@@ -5,16 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon, faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import LoginContext from "../Context/LoginProvider";
+import useRefresh from "../Hooks/useRefresh";
 
 const HeaderNav = (props) => {
   // const [isDarkMode, setIsDarkMode] = useState(false);
   // const [isLoginClick, setLoginClick] = useState(false);
-  const {setShowModal}=useContext(LoginContext);
+  const {setShowModal,isLoggin}=useContext(LoginContext);
   const navigate =useNavigate()
   const modeCangeHandler = () => {
     // setIsDarkMode(!isDarkMode);
     props.onModeChange();
   };
+  const refresh = useRefresh();
 
   const loginPrompthandler = () => {
     
@@ -42,16 +44,20 @@ const HeaderNav = (props) => {
             >
               <FontAwesomeIcon icon={props.isDarkMode ? faMoon : faSun} />
             </ToggleButton>
-
-            <Button className="primary" onClick={loginPrompthandler}>
-              Sing up
-            </Button>
-
+          {isLoggin === true ?
             <Navbar.Text>
               <Link to="/profile">
                 <FontAwesomeIcon icon={faCircleUser} size="2x" />
               </Link>
             </Navbar.Text>
+            :
+            <Button className="primary" onClick={loginPrompthandler}>
+              Sing up
+            </Button>
+            }
+            {/* <Button
+            onClick={refresh}
+            >refresh</Button> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

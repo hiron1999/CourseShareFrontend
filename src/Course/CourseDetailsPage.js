@@ -54,11 +54,13 @@ const CourseDetailsPage = ({courseId}) => {
       
       console.log("content ------------> " ,courseContent);
       console.log("subscription ------------> " ,subscription);
+      console.log("subscription response ------------> " ,SubscriptionResponse);
       
       const location = useLocation();
       const navigate = useNavigate();
       
       useEffect(() => {
+        console.log("loading course details........");
         loadCourseDetails();
         // toggleSubscriptionButton();
       }, [SubscriptionResponse]);

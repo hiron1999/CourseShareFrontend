@@ -4,7 +4,10 @@ import LoginContext from "../LoginProvider";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState();
+    const [auth, setAuth] = useState(()=>{
+        const localAuth =localStorage.getItem('auth');
+        return localAuth !==null ? JSON.parse(localAuth) : undefined;
+    });
     const {setIsloggin,setUserID}=useContext(LoginContext)
    
 
@@ -18,8 +21,12 @@ export const AuthProvider = ({ children }) => {
             setUserID(auth?.userId); 
         
         }
-        else {setIsloggin(false);}
-        
+        else {
+            console.log("setting login status ---->false");
+            
+            setIsloggin(false);
+        }
+        localStorage.setItem('auth',JSON.stringify(auth));
 
     },[auth])
 

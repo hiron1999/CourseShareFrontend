@@ -20,7 +20,7 @@ const useSubscription = () =>{
   
   const { response, loadingStatus, error, sendRequest } = useBaseConnection(subscriptionConfig);
   const [subscriptionError,setSubscriptionError]=useState();
-  const [SubscriptionResponse,setSubscriptionResponse]=useState();
+  const [SubscriptionResponse,setSubscriptionResponse]=useState({});
   const {userId} = useContext(LoginContext);
    
   

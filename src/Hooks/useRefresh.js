@@ -10,14 +10,15 @@ const useRefresh = ()=>{
 
     const refresh = async () =>{
        try{
-            const response = await axios.get("/v1/token",
+            const response = await axios.get("/auth/v1/token",
             {
                 withCredentials : true ,
                 // params: {
                 //     Refresh_Token : auth?.refershToken
                 // }
             });
-            setAuth (response?.data)
+            setAuth (response?.data);
+            return response?.data?.accessToken;
         }
         catch (e){
             console.log("error while refreshing:",e);

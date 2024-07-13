@@ -5,7 +5,7 @@ import LoginContext from "../Context/LoginProvider";
 
 const PATH="/course/"
 const useCourseDetails = (courseId)=>{
-
+    // console.log("userid",userId);
     const SEARCH_URL = PATH + courseId;
     const catalogConfig = {
         url: SEARCH_URL, // Specify the URL
@@ -16,19 +16,20 @@ const useCourseDetails = (courseId)=>{
       const { response, loadingStatus, error, sendRequest } = useBaseConnection(catalogConfig);
       const [courseDetails, setCourseDetails] = useState();
       const [courseError, setCourseError] =useState();
-      const {userId} = useContext(LoginContext);
+      const {userId}=useContext(LoginContext);
 
     const loadCourseDetails = async()=>{
       const requestparams = {
         userId : userId
       }
+      console.log(requestparams);
        await sendRequest({reqParams : requestparams});
     }
 
     // console.log("catalogHook :",courses);
 
     useEffect(()=>{
-        console.log("fetching cources catalog ...................");
+        console.log("fetching cources details ...................");
         if(loadingStatus === "success"){
             setCourseDetails(response);
             

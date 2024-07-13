@@ -18,6 +18,7 @@ import ClassRoom from "./Course/ClassRoom";
 import { VideoProvider } from "./Context/VideoProvider";
 import PrivateRoute from "./CommonUtils/PrivateRoute";
 import { CourseProvider } from "./Context/CourseProvider";
+import { CatalogProvider } from "./Context/CatalogProvider";
 
 
 function App() {
@@ -49,7 +50,7 @@ function App() {
           <LoginForm />
         )}
       </LoginModal>
-
+     <CatalogProvider>
       <HeaderNav onModeChange={temeCangehandler} isDarkMode={theme} />
       <Routes>
         <Route
@@ -88,6 +89,7 @@ function App() {
           </VideoProvider>
         }/> */}
       </Routes>
+      </CatalogProvider>   
     </Fragment>
   );
 }

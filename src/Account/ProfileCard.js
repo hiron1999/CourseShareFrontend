@@ -20,7 +20,7 @@ const ProfileCard = ({ user }) => {
   const {getUser,
     userDetails,
     loadingStatus,
-    error}=useUser(userId);
+    userError}=useUser(userId);
   const userData = userDetails || defaultUser;
     
 console.log("userid: ",userId);
@@ -29,6 +29,8 @@ console.log("userid: ",userId);
     },[userId])
 
   return (
+    userError? <h1>{userError}</h1>
+    :
     <Card className="shadow-sm">
       <Card.Body>
         <div className="text-center mb-3">

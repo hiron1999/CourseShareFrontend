@@ -4,7 +4,7 @@ import CatalogContainer from "../Course/CatalogContainer";
 
 const CatalogContext = createContext({});
 
-export const CatalogProvider = () => {
+export const CatalogProvider = ({children}) => {
   const { loadCourseContent, loadingStatus, catalogError, courses } = useFetchCourses();
     // console.log("catalogprovider :",courses);
   return (
@@ -14,7 +14,8 @@ export const CatalogProvider = () => {
         catalogError,
         courses
     }}>
-     <CatalogContainer/>   
+      {children}
+        
     </CatalogContext.Provider>
   );
 };

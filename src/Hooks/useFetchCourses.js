@@ -14,8 +14,11 @@ const useFetchCourses = ()=>{
       const [courses, setCourses] = useState();
       const [catalogError, setCatalogError] =useState();
 
-    const loadCourseContent = async()=>{
-       await sendRequest();
+    const loadCourseContent = async(searchKey)=>{
+      const requestParams ={
+        search_key : searchKey
+      }
+       await sendRequest({reqParams: requestParams});
     }
 
     // console.log("catalogHook :",courses);

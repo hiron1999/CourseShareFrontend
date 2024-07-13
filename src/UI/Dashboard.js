@@ -1,8 +1,8 @@
 import { Container } from "react-bootstrap";
 import "./Dashboard.css";
-import { CatalogProvider } from "../Context/CatalogProvider";
 import { useContext, useEffect } from "react";
 import LoginContext from "../Context/LoginProvider";
+import CatalogContainer from "../Course/CatalogContainer";
 
 
 const Dasboard = (props) => {
@@ -22,7 +22,7 @@ const Dasboard = (props) => {
         padding : "20px"
       }}
     >
-      <CatalogProvider/>
+      <CatalogContainer/>
     </Container>
   );
 };

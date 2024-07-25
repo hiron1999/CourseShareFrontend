@@ -3,6 +3,8 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import CatalogContext from "../Context/CatalogProvider";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const NavSearch = ()=>{
 
@@ -21,9 +23,9 @@ const NavSearch = ()=>{
     }
 
     return(
-        <Form inline className="me-2"  onSubmit={searchhandeller}>
+        <Form inline className="me-3"  onSubmit={searchhandeller}>
         <Row>
-          <Col xs="auto">
+          <Col md="auto">
             <Form.Control
               type="text"
               placeholder="Search"
@@ -33,7 +35,22 @@ const NavSearch = ()=>{
             />
           </Col>
           <Col xs="auto">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" 
+            style={{
+              padding: '10px 20px',
+              borderRadius: '20px',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              outline: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}  
+            >
+              <FontAwesomeIcon icon={faSearch} style={{ marginRight: '5px' }} />
+            </Button>
           </Col>
         </Row>
       </Form>

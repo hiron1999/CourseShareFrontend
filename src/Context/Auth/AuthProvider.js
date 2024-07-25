@@ -6,7 +6,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(()=>{
         const localAuth =localStorage.getItem('auth');
-        return localAuth !==null ? JSON.parse(localAuth) : undefined;
+        return localAuth ? JSON.parse(localAuth) : undefined;
     });
     const {setIsloggin,setUserID}=useContext(LoginContext)
    
@@ -26,7 +26,8 @@ export const AuthProvider = ({ children }) => {
             
             setIsloggin(false);
         }
-        localStorage.setItem('auth',JSON.stringify(auth));
+        auth ? localStorage.setItem('auth',JSON.stringify(auth))
+        : localStorage.removeItem('auth');
 
     },[auth])
 

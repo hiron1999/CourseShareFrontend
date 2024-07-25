@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Container, Tabs, Tab, Card, Button } from "react-bootstrap";
+import { Container, Tabs, Tab, Card, Button, Image } from "react-bootstrap";
 import "./CourseDetailsPage.css"; // Import custom CSS for styling
 import Module from "./Module";
 import ModuleSpace from "./ModuleSpace";
@@ -8,7 +8,7 @@ import useCourseDetails from "../Hooks/useCourseDetails";
 import useSubscription from "../Hooks/useSubscription";
 import CourseContext from "../Context/CourseProvider";
 import CourseStatusContext from "../Context/CourseStatusProvider";
-
+import ProfileIcon from "../Icons/profile-circle-icon.png"
 
 const CourseDetailsPage = ({courseId}) => {
   // Demo data for course details
@@ -214,11 +214,13 @@ const CourseDetailsPage = ({courseId}) => {
         >
           <Card.Body>
             <Card.Title>Author</Card.Title>
-            <ul>
-              {courseModules.map((module, index) => (
-                <li key={index}>{module}</li>
-              ))}
-            </ul>
+            <Image
+            src={ ProfileIcon}
+            roundedCircle
+            style={{ width: '100px', height: '100px' }}
+          />
+          <p>Author details :</p>
+          <p>ratings</p>
           </Card.Body>
         </Card>
       </Container>
